@@ -59,3 +59,143 @@ even.forEach((item) => {
  submit.innerHTML = 'HOOI'
  submit.style.backgroundColor = 'red'
  submit.style.color = 'yellow'
+
+ // traversing the DOM
+let itemList = document.querySelector('#item-list')
+itemList.parentNode.parentNode.style.backgroundColor = '#d5d5d5'
+itemList.parentNode.parentNode.style.margin = '.62REM'
+itemList.style.margin = '0'
+itemList.style.padding = '.31REM'
+console.log(itemList)
+console.log(itemList.parentNode.parentNode)
+// childnodes include spacing or line breaks etc
+console.log(itemList.childNodes)
+// better use children
+console.log(itemList.children)
+console.log(itemList.children[1].style.backgroundColor = 'green')
+console.log(itemList.firstChild) // don't use this - child node
+console.log(itemList.firstElementChild) // use this
+
+// siblings
+console.log(itemList.nextSibling) // don't use this, it return a node
+console.log(itemList.nextElementSibling) // yess use this
+console.log(itemList.previousElementSibling) // yess use this
+
+// create elements and insert them
+
+let newDiv = document.createElement('div')
+// add css class
+newDiv.className = 'hello'
+
+// add id
+newDiv.id = 'hello-id'
+
+
+// add attribute
+newDiv.setAttribute('title', 'hello-attr')
+
+let span = document.createElement('span')
+let span2 = document.createElement('span')
+let spanText = document.createTextNode('this is a new text using insertBefore')
+let spanText2 = document.createTextNode('this is a new text using appendChild')
+span.appendChild(spanText)
+span2.appendChild(spanText2)
+
+newDiv.appendChild(span)
+
+console.log(newDiv)
+console.log(span)
+
+let container = document.querySelector('.insert-card-input')
+
+container.insertBefore(newDiv, container.children[0])
+
+container.appendChild(document.createElement('div')).appendChild(span2)
+
+// event 
+let btn =  document.querySelector('#btn-id')
+console.log(btn)
+
+btn.style.backgroundColor = 'black'
+btn.style.color = 'white'
+btn.style.fontWeight = '500'
+btn.style.padding = '.62REM'
+btn.addEventListener('click', buttonClick);
+
+function buttonClick(e) {
+    console.log(e)
+    console.log(e.type)
+    console.log(e.target.id)
+    // console.log(e.target.className)
+    // console.log(e.target.classList)
+    // console.log(e.offsetX)
+    // console.log(e.offsetY)
+    // console.log(e.clientX)
+    // console.log(e.clientY)
+    // console.log(e.altKey)
+    // console.log(e.ctrlKey)
+    // console.log(e.shiftKey)
+}
+
+function runEvents(e) {
+    console.log('EVENT TYPE: ' + e.type)
+    if (e.type == 'click') {
+        addItem()
+    }
+}
+
+function addItem(e) {
+    let li = document.createElement('li')
+        li.className = 'insert-card-list-item'
+        li.style.display = 'flex'
+        let btnDelete = document.createElement('button')
+        btnDelete.className = 'btn-delete'
+        btnDelete.type = 'button'
+        btnDelete.style.backgroundColor = '#8b0000'
+        btnDelete.style.color = '#fff'
+        btnDelete.addEventListener('click', deleteItem)
+       // let btnDeleteText = document.createElement('innerHTML')
+        btnDelete.innerHTML = 'DELETE'
+        btnDelete.style.alignSelf = 'flex-end'
+        liSpan = document.createElement('span')
+        liSpan.innerHTML = 'Item to be deleted'
+        liSpan.style.width = '100%'
+        li.appendChild(liSpan)
+        li.appendChild(btnDelete)
+        itemList.appendChild(li)
+}
+
+function deleteItem(e) {
+    console.log(e.target)
+    if (e.target.classList.contains('btn-delete')) {
+        if (confirm('are you sure to delete?')) {
+            let liDeletion = e.target.parentElement
+            itemList.removeChild(liDeletion)
+        }
+    }
+}
+
+// https://stackoverflow.com/questions/11845678/adding-multiple-event-listeners-to-one-element 
+
+btn.addEventListener('click', runEvents)
+btn.addEventListener('doubleclick', runEvents)
+btn.addEventListener('mousedown', runEvents)
+
+/*
+ other events:
+    form input
+        - cut paste focus 
+        - blur(when get out from the input field)
+        - input(when typing)
+    form select
+        - change(after selection)
+        - input(when selecting)
+    form
+        - submit
+        - use e.preventDefault() // this will eliminate default event attached to the form
+
+
+*/
+
+// add item and delete button
+

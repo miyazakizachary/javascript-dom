@@ -27,9 +27,20 @@ body {
 }
 
 .insert-card-list {
+    display: flex;
+    flex-direction: column;
+}
 
+#item-list {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: flex-start; */
 }
 
 .insert-card-list-item {
-    
+    display: flex;
+}
+
+.btn-delete {
+    align-self: flex-end;
 }
